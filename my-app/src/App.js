@@ -1,25 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import {Inventory} from "./Inventory"
+import {Orders} from "./Orders"
+import {BrowserRouter, Route, Switch,NavLink, Routes} from 'react-router-dom';
 
 function App() {
-  // const [data, setData] = React.useState(null);
-
-  // React.useEffect(() => {
-  //   fetch("/api")
-  //     .then((res) => res.json())
-  //     .then((data) => setData(data.message));
-  // }, []);
-
-  // <p>{!data ? "Loading..." : data}</p>
-
-  // <form action="/post" method="post" className="form">
-  //   <button type="submit">Connected?</button>
-  // </form>;
-
   const [data, setData] = React.useState("data");
-
-  // <p>{!data ? "Loading..." : data}</p>
 
   const data_update = (api) => {
     fetch(api)
@@ -36,15 +23,33 @@ function App() {
   });
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <BrowserRouter>
+    <div className="App container">
+      <h3 className="d-flex justify-content-center m-3">
+      React JS Frontend
+      </h3>
 
-        <p>You clicked {!data ? 0 : data} times</p>
+      <nav className="navbar navbar-expand-sm bg-light navbar-dark">
+        <ul className="navbar-nav">
+          <li className="nav-item- m-1">
+            <NavLink className="btn btn-light btn-outline-primary" to="/inventory">
+              Inventory
+            </NavLink>
+          </li>
+          <li className="nav-item- m-1">
+            <NavLink className="btn btn-light btn-outline-primary" to="/orders">
+              Orders
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
 
-        <button onClick={() => data_update("api")}>Click me</button>
-      </header>
+      <Switch>
+        <Route path='/inventory' component={Inventory}/>
+        <Route path='/orders' component={Orders}/>
+      </Switch>
     </div>
+    </BrowserRouter>
   );
 }
 
