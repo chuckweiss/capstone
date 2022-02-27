@@ -1,13 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 // import logo from "./logo.svg";
 import "./App.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Tasks from "./components/Tasks";
-import AddTask from "./components/AddTask";
 import About from "./components/About";
+import TaskTracker from "./components/TaskTracker";
 
 const App = () => {
   const [showAddTask, setShowAddTask] = useState(false);
@@ -96,18 +95,13 @@ const App = () => {
           <Route
             path="/"
             element={
-              <>
-                {showAddTask && <AddTask onAdd={addTask} />}
-                {tasks.length > 0 ? (
-                  <Tasks
-                    tasks={tasks}
-                    onDelete={deleteTask}
-                    onToggle={toggleReminder}
-                  />
-                ) : (
-                  "No Tasks to Show"
-                )}
-              </>
+              <TaskTracker
+                showAddTask={showAddTask}
+                addTask={addTask}
+                deleteTask={deleteTask}
+                tasks={tasks}
+                toggleReminder={toggleReminder}
+              />
             }
           />
           <Route path="/about" element={<About />} />

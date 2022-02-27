@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const About = () => {
+  document.title = `About`;
   return (
     <div>
       <h4>version 1.0.0</h4>
