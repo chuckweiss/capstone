@@ -16,7 +16,6 @@ function App() {
 
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading] = useState("Loading...");
-  // setLoading("Loading...");
 
   // Get inventory on page load
   useEffect(() => {
@@ -49,17 +48,16 @@ function App() {
     });
 
     const data = await res.json();
-    data.id = inventory.length + 1;
 
-    setInventory([...inventory, item]);
+    // I think this causes useEffect meaning we do the same thing twice
+    setInventory([...inventory, data]);
   };
 
   const deleteItem = async (id) => {
+    setInventory(inventory.filter((item) => item.id !== id));
     await fetch(`${serverURL}/${inventoryURL}/${id}`, {
       method: "DELETE",
     });
-
-    setInventory(inventory.filter((item) => item.id !== id));
   };
 
   return (

@@ -3,8 +3,8 @@ import Item from "./Item";
 const Items = ({ inventory, deleteItem }) => {
   return (
     <>
-      {inventory.map((item) => (
-        <Item key={item.id} item={item} deleteItem={deleteItem} />
+      {inventory.map((item, i) => (
+        <Item key={i} item={item} deleteItem={deleteItem} />
       ))}
     </>
   );
