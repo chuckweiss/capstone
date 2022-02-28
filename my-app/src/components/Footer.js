@@ -10,7 +10,12 @@ const Footer = () => {
         rel="stylesheet"
       />
 
-      <Link to="/about" className="nav__link">
+      <Link
+        to="/about"
+        className={`nav__link ${
+          location.pathname === "/about" && "nav__link--active"
+        }`}
+      >
         <i class="material-icons nav___icon">qr_code_scanner</i>
         <span class="nav__text">QR</span>
       </Link>
@@ -32,7 +37,7 @@ const Footer = () => {
         }`}
       >
         <i class="material-icons nav___icon">dashboard</i>
-        <span class="nav__text">Dashboard</span>
+        <span class="nav__text">Order</span>
       </Link>
     </nav>
   );
