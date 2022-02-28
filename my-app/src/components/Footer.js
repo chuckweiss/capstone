@@ -1,11 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
+  const location = useLocation();
+
   return (
-    <footer>
-      <p>Copyright &copy; 2021</p>
-      <Link to="/about">About</Link>
-    </footer>
+    <nav class="nav">
+      <link
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet"
+      />
+
+      <Link to="/about" className="nav__link">
+        <i class="material-icons nav___icon">qr_code_scanner</i>
+        <span class="nav__text">QR</span>
+      </Link>
+
+      <Link
+        to="/"
+        className={`nav__link ${
+          location.pathname === "/" && "nav__link--active"
+        }`}
+      >
+        <i class="material-icons nav___icon">list</i>
+        <span class="nav__text">Inventory</span>
+      </Link>
+
+      <Link
+        to="/about"
+        className={`nav__link ${
+          location.pathname === "/about" && "nav__link--active"
+        }`}
+      >
+        <i class="material-icons nav___icon">dashboard</i>
+        <span class="nav__text">Dashboard</span>
+      </Link>
+    </nav>
   );
 };
 
