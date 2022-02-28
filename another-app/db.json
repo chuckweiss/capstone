@@ -1,3 +1,22 @@
 {
-  "inventory": []
+  "inventory": [
+    {
+      "text": "Pizza",
+      "amount": "5",
+      "date": "Tue",
+      "id": 1
+    },
+    {
+      "text": "sauce",
+      "amount": "3",
+      "date": "Fri",
+      "id": 2
+    },
+    {
+      "text": "asdsa",
+      "amount": "2",
+      "date": "adasd",
+      "id": 3
+    }
+  ]
 }
