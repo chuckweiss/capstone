@@ -9,7 +9,7 @@ const InventoryTracker = ({ inventory, addItem, deleteItem, loading }) => {
   const [showAdd, setShowAdd] = useState(false);
 
   return (
-    <div className="inventory">
+    <div className="container mx-auto">
       <h1>
         Inventory Tracker
         <AddButton

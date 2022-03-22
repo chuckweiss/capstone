@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import logo from "./logo.svg";
-import "./App.css";
+// import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
@@ -62,7 +62,7 @@ function App() {
 
   return (
     <Router>
-      <div className="container">
+      <div className="">
         <Routes>
           <Route
             path={`/${inventoryURL}`}

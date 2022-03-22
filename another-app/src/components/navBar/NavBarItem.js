@@ -6,12 +6,13 @@ const NavBarItem = ({ to, text, name }) => {
   return (
     <Link
       to={to}
-      className={`navbar__item ${
-        location.pathname === to && "navbar__item--active"
-      }`}
+      className="flex flex-col 
+      justify-center items-center 
+      hover:bg-green-200 
+      active:bg-green-800"
     >
-      <i className="material-icons navbar__icon">{name}</i>
-      <span className="navbar__text">{text}</span>
+      <i className="material-icons">{name}</i>
+      <span className="">{text}</span>
     </Link>
   );
 };

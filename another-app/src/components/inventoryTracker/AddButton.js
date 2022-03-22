@@ -3,7 +3,7 @@ const AddButton = ({ color, text, onClick }) => {
     <button
       onClick={onClick}
       style={{ backgroundColor: color }}
-      className="addbtn"
+      className="inline-block"
     >
       {text}
     </button>
