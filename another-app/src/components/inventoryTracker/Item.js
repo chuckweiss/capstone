@@ -1,11 +1,14 @@
 const Item = ({ item, deleteItem }) => {
   return (
-    <div className="inventory__item" onDoubleClick={() => deleteItem(item.id)}>
-      <h3>
+    <div className="py-3" onDoubleClick={() => deleteItem(item.id)}>
+      <h3 className="flex flex-row justify-between pb-1">
         {item.text}
         <div>{item.amount}</div>
       </h3>
-      <p>Last order date: {item.date}</p>
+      <p className="flex flex-row justify-between">
+        Last order date:
+        <p>{item.date}</p>
+      </p>
     </div>
   );
 };

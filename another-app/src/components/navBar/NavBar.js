@@ -2,7 +2,11 @@ import NavBarItem from "./NavBarItem";
 
 const NavBar = () => {
   return (
-    <nav className="fixed bottom-0 w-screen m-0 flex flex-row text-green-400 justify-evenly">
+    <nav
+      className="fixed bottom-0 w-screen m-0 
+    flex flex-row text-green-400 justify-evenly 
+    bg-white pt-2 shadow-inner"
+    >
       <link
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet"
