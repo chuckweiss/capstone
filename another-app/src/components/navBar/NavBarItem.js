@@ -8,8 +8,7 @@ const NavBarItem = ({ to, text, name }) => {
       to={to}
       className="flex flex-col 
       justify-center items-center 
-      hover:bg-green-200 
-      active:bg-green-800"
+      w-full hover:font-bold"
     >
       <i className="material-icons">{name}</i>
       <span className="">{text}</span>

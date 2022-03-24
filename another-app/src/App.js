@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import InventoryTracker from "./components/inventoryTracker/InventoryTracker";
 import NavBar from "./components/navBar/NavBar";
+import OrderPage from "./components/orderPage/orderPage";
 
 function App() {
   const serverURL = "http://localhost:5000";
@@ -75,6 +76,9 @@ function App() {
               />
             }
           />
+
+          <Route path="/order" element={<OrderPage />} />
+
           <Route path="/" element={<Navigate to={inventoryURL} />} />
         </Routes>
         <NavBar />
