@@ -53,6 +53,21 @@ function App() {
     setInventory([...inventory, data]);
   };
 
+  // Edit Item
+  const editItem = async (item, value)=>{
+    const res = await fetch(`${serverURL}/${inventoryURL}/${item.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ amount: value }),
+    });
+    const data = await res.json();
+    setInventory([...inventory, data]);
+  };
+
+
+
   const deleteItem = async (id) => {
     setInventory(inventory.filter((item) => item.id !== id));
     await fetch(`${serverURL}/${inventoryURL}/${id}`, {
@@ -71,6 +86,7 @@ function App() {
                 inventory={inventory}
                 addItem={addItem}
                 deleteItem={deleteItem}
+                editItem={editItem}
                 loading={loading}
               />
             }

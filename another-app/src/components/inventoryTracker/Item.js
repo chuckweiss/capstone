@@ -2,6 +2,7 @@ import EditButton from "./EditButton";
 import EditItem from "./EditItem";
 import { useState } from "react";
 
+
 const Item = ({ item, deleteItem, editItem }) => {
   const [showEdit, setShowEdit] = useState(false);
 
@@ -20,7 +21,7 @@ const Item = ({ item, deleteItem, editItem }) => {
       <p className="flex flex-row justify-between">
         Last order date:
         <p>{item.date}</p>
-      </p>
+      </p>  
     </div>
     
   );
