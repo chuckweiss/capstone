@@ -15,7 +15,7 @@ const Item = ({ item, deleteItem, editItem }) => {
       color='Blue'
       onClick={() => setShowEdit(!showEdit)}
       />
-      {showEdit && <EditItem onEdit={editItem} setShowEdit={setShowEdit} />}
+      {showEdit && <EditItem onEdit={editItem} setShowEdit={setShowEdit} item={item}/>}
 
       </h3>
       <p className="flex flex-row justify-between">

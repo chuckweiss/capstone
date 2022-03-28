@@ -1,5 +1,5 @@
 import { useState } from "react";
-const EditItem = ({ onEdit, setShowEdit, item, editItem }) => {
+const EditItem = ({ onEdit, setShowEdit, item }) => {
   const [amount, setAmount] = useState(0);
 
   const onSubmit = (e) => {
@@ -9,8 +9,8 @@ const EditItem = ({ onEdit, setShowEdit, item, editItem }) => {
       alert("No amount entered");
       return;
     }
+    onEdit(item, {amount})
 
-    onEdit({ amount });
 
     setAmount(0);
     setShowEdit(false);
@@ -30,7 +30,7 @@ const EditItem = ({ onEdit, setShowEdit, item, editItem }) => {
           type="text"
           placeholder="Amount"
           value={amount}
-          onChange={(e) => editItem(item.id, e.target.value)}
+          onChange={(e) => setAmount(e.target.value)}
         />
       </div>
 
