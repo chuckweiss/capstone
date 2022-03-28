@@ -17,6 +17,8 @@ function App() {
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading] = useState("Loading...");
 
+  const [update, setUpdate] = useState(false);
+
   // Get inventory on page load
   useEffect(() => {
     setLoading("Loading..."); // I don't think this is working
@@ -28,7 +30,7 @@ function App() {
     getInventory();
 
     inventory.length === 0 && setLoading("No Items"); // see above
-  }, []);
+  }, [update]);
 
   // Fetch Inventory
   const fetchInventory = async () => {
@@ -62,8 +64,8 @@ function App() {
       },
       body: JSON.stringify({ amount }),
     });
-    const data = await res.json();
-    setInventory([...inventory, data]);
+    await res.json();
+    setUpdate(true);
   };
 
   const deleteItem = async (id) => {
