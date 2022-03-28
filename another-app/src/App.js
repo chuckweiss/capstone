@@ -65,7 +65,7 @@ function App() {
       body: JSON.stringify({ amount }),
     });
     await res.json();
-    setUpdate(true);
+    setUpdate(!update);
   };
 
   const deleteItem = async (id) => {
