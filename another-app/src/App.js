@@ -54,19 +54,17 @@ function App() {
   };
 
   // Edit Item
-  const editItem = async (item, value)=>{
+  const editItem = async (item, amount) => {
     const res = await fetch(`${serverURL}/${inventoryURL}/${item.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ amount: value }),
+      body: JSON.stringify({ amount }),
     });
     const data = await res.json();
     setInventory([...inventory, data]);
   };
-
-
 
   const deleteItem = async (id) => {
     setInventory(inventory.filter((item) => item.id !== id));
