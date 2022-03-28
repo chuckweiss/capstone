@@ -5,6 +5,12 @@
       "amount": "7",
       "date": "we",
       "id": 1
+    },
+    {
+      "text": "re",
+      "amount": "5",
+      "date": "Tue",
+      "id": 2
     }
   ]
 }

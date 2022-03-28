@@ -49,10 +49,11 @@ function App() {
       body: JSON.stringify(item),
     });
 
-    const data = await res.json();
+    await res.json();
+    setUpdate(!update);
 
     // I think this causes useEffect meaning we do the same thing twice
-    setInventory([...inventory, data]);
+    // setInventory([...inventory, data]);
   };
 
   // Edit Item
