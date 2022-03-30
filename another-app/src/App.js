@@ -77,7 +77,17 @@ function App() {
             }
           />
 
-          <Route path="/order" element={<OrderPage />} />
+          <Route
+            path="/order"
+            element={
+              <OrderPage
+                inventory={inventory}
+                addItem={addItem}
+                deleteItem={deleteItem}
+                loading={loading}
+              />
+            }
+          />
 
           <Route path="/" element={<Navigate to={inventoryURL} />} />
         </Routes>
