@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 // import logo from "./logo.svg";
 // import "./App.css";
 import {
@@ -15,65 +15,60 @@ function App() {
   const inventoryURL = "inventory";
 
   const [inventory, setInventory] = useState([]);
-  const [loading, setLoading] = useState("Loading...");
 
-  const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState([]);
 
-  // Get inventory on page load
-  useEffect(() => {
-    setLoading("Loading..."); // I don't think this is working
-
-    const getInventory = async () => {
-      const inventory = await fetchInventory();
-      setInventory(inventory);
-    };
-    getInventory();
-
-    inventory.length === 0 && setLoading("No Items"); // see above
-  }, [update]);
+  const isInitialMount = useRef(true);
 
   // Fetch Inventory
   const fetchInventory = async () => {
     const res = await fetch(`${serverURL}/${inventoryURL}`);
     const data = await res.json();
-    return data;
+    return data[0].items;
   };
+
+  // Get inventory on page load
+  useEffect(() => {
+    const getInventory = async () => {
+      const inventory = await fetchInventory();
+      setInventory(inventory);
+    };
+    getInventory();
+  }, []);
+
+  // Keep inventory updated on server
+  useEffect(() => {
+    const postInventory = async () => {
+      await fetch(`${serverURL}/${inventoryURL}/1`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ items: inventory }),
+      });
+    };
+
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      postInventory();
+    }
+  }, [inventory]);
 
   // Add Item
   const addItem = async (item) => {
-    const res = await fetch(`${serverURL}/${inventoryURL}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(item),
-    });
-
-    await res.json();
-    setUpdate(!update);
-
-    // I think this causes useEffect meaning we do the same thing twice
-    // setInventory([...inventory, data]);
+    inventory.push(item);
+    setInventory([...inventory]);
   };
 
   // Edit Item
   const editItem = async (item, amount) => {
-    const res = await fetch(`${serverURL}/${inventoryURL}/${item.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ amount }),
-    });
-    await res.json();
-    setUpdate(!update);
+    item.amount = amount;
+    setInventory([...inventory]);
   };
 
-  const deleteItem = async (id) => {
-    setInventory(inventory.filter((item) => item.id !== id));
-    await fetch(`${serverURL}/${inventoryURL}/${id}`, {
-      method: "DELETE",
-    });
+  const deleteItem = async (item) => {
+    setInventory(inventory.filter((e) => e !== item));
   };
 
   return (

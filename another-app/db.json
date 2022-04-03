@@ -1,16 +1,14 @@
 {
   "inventory": [
     {
-      "text": "t",
-      "amount": "7",
-      "date": "we",
+      "items": [
+        {
+          "text": "TRhank",
+          "amount": "2",
+          "date": "Gods"
+        }
+      ],
       "id": 1
-    },
-    {
-      "text": "re",
-      "amount": "5",
-      "date": "Tue",
-      "id": 2
     }
   ]
 }
