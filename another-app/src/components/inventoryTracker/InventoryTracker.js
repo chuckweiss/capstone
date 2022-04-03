@@ -3,7 +3,7 @@ import Items from "./Items";
 import AddButton from "./AddButton";
 import AddItem from "./AddItem";
 
-const InventoryTracker = ({ inventory, addItem, deleteItem, editItem, loading }) => {
+const InventoryTracker = ({ inventory, addItem, deleteItem, editItem }) => {
   document.title = `Inventory - ${inventory.length} items`;
 
   const [showAdd, setShowAdd] = useState(false);
@@ -20,11 +20,11 @@ const InventoryTracker = ({ inventory, addItem, deleteItem, editItem, loading })
       </h1>
 
       {showAdd && <AddItem onAdd={addItem} setShowAdd={setShowAdd} />}
-      {inventory.length > 0 ? (
-        <Items inventory={inventory} deleteItem={deleteItem} editItem={editItem} />
-      ) : (
-        loading
-      )}
+      <Items
+        inventory={inventory}
+        deleteItem={deleteItem}
+        editItem={editItem}
+      />
     </div>
   );
 };

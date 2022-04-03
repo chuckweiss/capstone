@@ -16,8 +16,6 @@ function App() {
 
   const [inventory, setInventory] = useState([]);
 
-  const [loading, setLoading] = useState([]);
-
   const isInitialMount = useRef(true);
 
   // Fetch Inventory
@@ -83,7 +81,6 @@ function App() {
                 addItem={addItem}
                 deleteItem={deleteItem}
                 editItem={editItem}
-                loading={loading}
               />
             }
           />
