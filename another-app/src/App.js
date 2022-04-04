@@ -9,18 +9,27 @@ import {
 } from "react-router-dom";
 import InventoryTracker from "./components/inventoryTracker/InventoryTracker";
 import NavBar from "./components/navBar/NavBar";
+import OrderPage from "./components/orderPage/OrderPage";
 
 function App() {
   const serverURL = "http://localhost:5000";
   const inventoryURL = "inventory";
+  const orderPageURL = "order";
 
   const [inventory, setInventory] = useState([]);
+  const [profiles, setProfiles] = useState([]);
 
   const isInitialMount = useRef(true);
 
   // Fetch Inventory
   const fetchInventory = async () => {
     const res = await fetch(`${serverURL}/${inventoryURL}`);
+    const data = await res.json();
+    return data[0].items;
+  };
+
+  const fetchProfiles = async () => {
+    const res = await fetch(`${serverURL}/profiles`);
     const data = await res.json();
     return data[0].items;
   };
@@ -32,6 +41,12 @@ function App() {
       setInventory(inventory);
     };
     getInventory();
+
+    const getProfiles = async () => {
+      const profiles = await fetchProfiles();
+      setProfiles(profiles);
+    };
+    getProfiles();
   }, []);
 
   // Keep inventory updated on server
@@ -53,13 +68,11 @@ function App() {
     }
   }, [inventory]);
 
-  // Add Item
   const addItem = async (item) => {
     inventory.push(item);
     setInventory([...inventory]);
   };
 
-  // Edit Item
   const editItem = async (item, amount) => {
     item.amount = amount;
     setInventory([...inventory]);
@@ -83,6 +96,10 @@ function App() {
                 editItem={editItem}
               />
             }
+          />
+          <Route
+            path={`/${orderPageURL}`}
+            element={<OrderPage inventory={inventory} profiles={profiles} />}
           />
           <Route path="/" element={<Navigate to={inventoryURL} />} />
         </Routes>

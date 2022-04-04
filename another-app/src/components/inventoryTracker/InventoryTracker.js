@@ -1,7 +1,8 @@
 import { useState } from "react";
-import Items from "./Items";
+import Items from "./items/Items";
 import AddButton from "./AddButton";
 import AddItem from "./AddItem";
+import EditAmount from "./editAmount/EditAmount";
 
 const InventoryTracker = ({ inventory, addItem, deleteItem, editItem }) => {
   document.title = `Inventory - ${inventory.length} items`;
@@ -24,6 +25,7 @@ const InventoryTracker = ({ inventory, addItem, deleteItem, editItem }) => {
         inventory={inventory}
         deleteItem={deleteItem}
         editItem={editItem}
+        element={<EditAmount />}
       />
     </div>
   );
