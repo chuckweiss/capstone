@@ -17,7 +17,7 @@ function App() {
   const orderPageURL = "order";
 
   const [inventory, setInventory] = useState([]);
-  const [profiles, setProfiles] = useState([]);
+  const [profiles, setProfiles] = useState({});
 
   const isInitialMount = useRef(true);
 
@@ -82,6 +82,20 @@ function App() {
     setInventory(inventory.filter((e) => e !== item));
   };
 
+  const storeOrder = (orders) => {
+    const postOrders = async () => {
+      await fetch(`${serverURL}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ orders: orders, time: Date.now() }),
+      });
+    };
+
+    postOrders();
+  };
+
   return (
     <Router>
       <div className="">
@@ -99,7 +113,13 @@ function App() {
           />
           <Route
             path={`/${orderPageURL}`}
-            element={<OrderPage inventory={inventory} profiles={profiles} />}
+            element={
+              <OrderPage
+                inventory={inventory}
+                profiles={profiles}
+                storeOrder={storeOrder}
+              />
+            }
           />
           <Route path="/" element={<Navigate to={inventoryURL} />} />
         </Routes>

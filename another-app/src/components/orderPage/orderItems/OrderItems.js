@@ -1,18 +1,17 @@
-import { useState } from "react";
 import OrderItem from "./OrderItem";
 
-const OrderItems = ({ inventory, profile }) => {
-  const [orderAmounts, setOrderAmounts] = useState(
-    inventory.map((item) => profile[item.text] - item.amount)
-  );
+const OrderItems = ({ inventory, profile, storeOrder }) => {
+  // const [orderAmounts, setOrderAmounts] = useState(
+  //   inventory.map((item) => profile[item.text] - item.amount) // catch instance here item.text does not exist
+  // );
 
-  const changeOrderAmount = (i, amount) => {
-    orderAmounts[i] = amount;
-    setOrderAmounts([...orderAmounts]);
-  };
+  let orderAmounts = inventory.map((item) => profile[item.text] - item.amount);
+
+  const changeOrderAmount = (i, amount) => (orderAmounts[i] = amount);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    storeOrder(orderAmounts.map((amount, i) => [inventory[i].text, amount]));
   };
 
   return (
@@ -37,7 +36,6 @@ const OrderItems = ({ inventory, profile }) => {
         type="submit"
         value="Place Order"
       />
-      {/* <input type="submit" value="Save Profile" /> */}
     </form>
   );
 };

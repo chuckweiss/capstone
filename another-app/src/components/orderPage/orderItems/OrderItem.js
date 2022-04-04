@@ -1,4 +1,4 @@
-const OrderItem = ({ item, orderAmounts, index, setAmount, profile }) => {
+const OrderItem = ({ item, setAmount, profile }) => {
   return (
     <div className="py-3">
       <h3 className="flex flex-row justify-evenly pb-1">{item.text}</h3>

@@ -2,8 +2,8 @@ import { useState } from "react";
 import OrderItems from "./orderItems/OrderItems";
 import ProfileSelect from "./ProfileSelect";
 
-const OrderPage = ({ inventory, profiles }) => {
-  const [profile, setProfile] = useState(profiles.profile1);
+const OrderPage = ({ inventory, profiles, storeOrder }) => {
+  const [profileName, setProfileName] = useState("profile2");
 
   return (
     <div className="flex flex-col items-center py-4">
@@ -13,11 +13,17 @@ const OrderPage = ({ inventory, profiles }) => {
 
       <ProfileSelect
         profiles={profiles}
-        profile={profile}
-        setProfile={setProfile}
+        profileName={profileName}
+        setProfileName={setProfileName}
       />
 
-      <OrderItems inventory={inventory} profile={profile} />
+      {profiles[profileName] && (
+        <OrderItems
+          inventory={inventory}
+          profile={profiles[profileName]}
+          storeOrder={storeOrder}
+        />
+      )}
     </div>
   );
 };
