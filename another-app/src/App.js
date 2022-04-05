@@ -10,11 +10,13 @@ import {
 import InventoryTracker from "./components/inventoryTracker/InventoryTracker";
 import NavBar from "./components/navBar/NavBar";
 import OrderPage from "./components/orderPage/OrderPage";
+import ProfilesPage from "./components/profilesPage/ProfilesPage";
 
 function App() {
   const serverURL = "http://localhost:5000";
   const inventoryURL = "inventory";
   const orderPageURL = "order";
+  const profilesURL = "profiles";
 
   const [inventory, setInventory] = useState([]);
   const [profiles, setProfiles] = useState({});
@@ -29,7 +31,7 @@ function App() {
   };
 
   const fetchProfiles = async () => {
-    const res = await fetch(`${serverURL}/profiles`);
+    const res = await fetch(`${serverURL}/${profilesURL}`);
     const data = await res.json();
     return data[0].items;
   };
@@ -96,6 +98,24 @@ function App() {
     postOrders();
   };
 
+  const storeProfile = (name, data) => {
+    profiles[name] = Object.fromEntries(data);
+    profiles[name].name = name;
+    setProfiles(profiles);
+
+    const postProfiles = async () => {
+      await fetch(`${serverURL}/${profilesURL}/1`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ items: profiles }),
+      });
+    };
+
+    postProfiles();
+  };
+
   return (
     <Router>
       <div className="">
@@ -118,6 +138,16 @@ function App() {
                 inventory={inventory}
                 profiles={profiles}
                 storeOrder={storeOrder}
+              />
+            }
+          />
+          <Route
+            path={`/${profilesURL}`}
+            element={
+              <ProfilesPage
+                inventory={inventory}
+                profiles={profiles}
+                storeProfile={storeProfile}
               />
             }
           />
