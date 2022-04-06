@@ -1,4 +1,8 @@
-const ProfileItem = ({ item, setAmount, profile }) => {
+import { useState } from "react";
+
+const ProfileItem = ({ item, amount, setAmount, profile }) => {
+  const [value, setValue] = useState(parseInt(profile[item.text]));
+
   return (
     <div className="py-3">
       <h3 className="flex flex-row justify-evenly pb-1">{item.text}</h3>
@@ -16,8 +20,12 @@ const ProfileItem = ({ item, setAmount, profile }) => {
           leading-tight focus:outline-none focus:shadow-outline 
           text-right"
           type="text"
-          value={profile[item.text] ? profile[item.text] : 0}
-          onChange={(e) => setAmount(e.target.value)}
+          value={value}
+          onChange={(e) => {
+            const val = parseInt(e.target.value) || 0;
+            setValue(val);
+            setAmount(val);
+          }}
         />
       </div>
     </div>

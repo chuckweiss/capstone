@@ -101,7 +101,7 @@ function App() {
   const storeProfile = (name, data) => {
     profiles[name] = Object.fromEntries(data);
     profiles[name].name = name;
-    setProfiles(profiles);
+    setProfiles(Object.assign({}, profiles));
 
     const postProfiles = async () => {
       await fetch(`${serverURL}/${profilesURL}/1`, {
@@ -118,7 +118,7 @@ function App() {
 
   return (
     <Router>
-      <div className="">
+      <div className="pb-20 overflow-auto">
         <Routes>
           <Route
             path={`/${inventoryURL}`}

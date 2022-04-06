@@ -20,7 +20,7 @@ const ProfilesPage = ({ inventory, profiles, storeProfile }) => {
       {profiles[profileName] && (
         <ProfileItems
           inventory={inventory}
-          profile={profiles[profileName]}
+          profiles={profiles}
           profileName={profileName}
           storeProfile={storeProfile}
         />

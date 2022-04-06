@@ -1,9 +1,9 @@
 import ProfileItem from "./ProfileItem";
 
-const ProfileItems = ({ inventory, profile, profileName, storeProfile }) => {
-  let profileAmounts = inventory.map(
-    (item) => profile[item.text] - item.amount
-  );
+const ProfileItems = ({ inventory, profiles, profileName, storeProfile }) => {
+  const profile = profiles[profileName];
+
+  let profileAmounts = inventory.map((item) => parseInt(profile[item.text]));
 
   const changeProfileAmount = (i, amount) => (profileAmounts[i] = amount);
 
@@ -25,6 +25,7 @@ const ProfileItems = ({ inventory, profile, profileName, storeProfile }) => {
         <ProfileItem
           key={i}
           item={item}
+          amount={profileAmounts[i] || 0}
           setAmount={(amount) => changeProfileAmount(i, amount)}
           profile={profile}
         />

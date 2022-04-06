@@ -1,4 +1,10 @@
+import { useState } from "react";
+
 const OrderItem = ({ item, setAmount, profile }) => {
+  const [value, setValue] = useState(
+    profile[item.text] ? profile[item.text] - item.amount : 0
+  );
+
   return (
     <div className="py-3">
       <h3 className="flex flex-row justify-evenly pb-1">{item.text}</h3>
@@ -19,8 +25,11 @@ const OrderItem = ({ item, setAmount, profile }) => {
           leading-tight focus:outline-none focus:shadow-outline 
           text-right"
           type="text"
-          value={profile[item.text] ? profile[item.text] - item.amount : 0}
-          onChange={(e) => setAmount(e.target.value)}
+          value={value}
+          onChange={(e) => {
+            setValue(parseInt(e.target.value));
+            setAmount(parseInt(e.target.value));
+          }}
         />
       </div>
     </div>
