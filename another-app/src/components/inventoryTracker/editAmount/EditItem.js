@@ -5,12 +5,11 @@ const EditItem = ({ onEdit, setShowEdit, item }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!amount) {
+    if (amount < 0) {
       alert("No amount entered");
       return;
     }
     onEdit(item, amount);
-    setAmount(0);
     setShowEdit(false);
   };
 

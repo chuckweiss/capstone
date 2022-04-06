@@ -76,6 +76,7 @@ function App() {
   };
 
   const editItem = async (item, amount) => {
+    console.log(item, amount);
     item.amount = amount;
     setInventory([...inventory]);
   };

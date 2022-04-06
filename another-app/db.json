@@ -3,19 +3,19 @@
     {
       "items": [
         {
-          "text": "Item2",
-          "amount": "2",
-          "date": "Fri"
-        },
-        {
-          "text": "Item3",
-          "amount": "7",
-          "date": "Mon"
-        },
-        {
           "text": "Item4",
-          "amount": "12",
+          "amount": "6",
           "date": "Fri"
+        },
+        {
+          "text": "Item1",
+          "amount": "2",
+          "date": "Wed"
+        },
+        {
+          "text": "Item5",
+          "amount": "3",
+          "date": "Mon"
         }
       ],
       "id": 1
