@@ -44,7 +44,7 @@ const ProfileItems = ({ inventory, profiles, profileName, storeProfile }) => {
       <input
         className="shadow rounded py-2 px-1 mt-4 
         text-gray-100 leading-tight focus:outline-none 
-        focus:shadow-outline bg-green-900"
+        focus:shadow-outline bg-green-900 cursor-pointer"
         type="submit"
         value="Save Profile"
       />

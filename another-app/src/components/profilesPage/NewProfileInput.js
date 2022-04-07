@@ -48,20 +48,6 @@ const NewProfileInput = ({
                 rounded-t"
                 >
                   <h3 className="text-3xl font-semibold">Save a New Profile</h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent border-0 
-                    text-black opacity-5 float-right text-3xl 
-                    leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span
-                      className="bg-transparent text-black 
-                    opacity-5 h-6 w-6 text-2xl block outline-none 
-                    focus:outline-none"
-                    >
-                      ×
-                    </span>
-                  </button>
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
@@ -93,7 +79,11 @@ const NewProfileInput = ({
                     focus:outline-none mr-1 mb-1 ease-linear 
                     transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setNewProfileName("");
+                      setValue("");
+                      setShowModal(false);
+                    }}
                   >
                     Close
                   </button>
@@ -107,6 +97,8 @@ const NewProfileInput = ({
                     onClick={(e) => {
                       setShowModal(false);
                       onSubmit(e);
+                      setNewProfileName("");
+                      setValue("");
                     }}
                   >
                     Save
