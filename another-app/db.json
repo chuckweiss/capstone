@@ -32,10 +32,9 @@
           "name": "profile1"
         },
         "profile2": {
-          "Item1": 4,
-          "Item2": 4,
-          "Item3": 6,
           "Item4": 4,
+          "Item1": 4,
+          "Item5": 7,
           "name": "profile2"
         },
         "profile3": {

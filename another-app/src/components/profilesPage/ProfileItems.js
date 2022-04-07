@@ -3,15 +3,15 @@ import ProfileItem from "./ProfileItem";
 const ProfileItems = ({ inventory, profiles, profileName, storeProfile }) => {
   const profile = profiles[profileName];
 
-  let profileAmounts = inventory.map((item) => parseInt(profile[item.text]));
+  let amounts = inventory.map((item) => parseInt(profile[item.text]));
 
-  const changeProfileAmount = (i, amount) => (profileAmounts[i] = amount);
+  const changeAmounts = (i, amount) => (amounts[i] = amount);
 
   const onSubmit = (e) => {
     e.preventDefault();
     storeProfile(
       profileName,
-      profileAmounts.map((amount, i) => [inventory[i].text, amount])
+      amounts.map((amount, i) => [inventory[i].text, amount])
     );
   };
 
@@ -25,8 +25,8 @@ const ProfileItems = ({ inventory, profiles, profileName, storeProfile }) => {
         <ProfileItem
           key={i}
           item={item}
-          amount={profileAmounts[i] || 0}
-          setAmount={(amount) => changeProfileAmount(i, amount)}
+          amount={amounts[i]}
+          setAmount={(amount) => changeAmounts(i, amount)}
           profile={profile}
         />
       ))}

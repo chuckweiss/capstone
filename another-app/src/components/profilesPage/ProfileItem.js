@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ProfileItem = ({ item, amount, setAmount, profile }) => {
-  const [value, setValue] = useState(parseInt(profile[item.text]));
+  const [value, setValue] = useState(amount);
+
+  useEffect(() => {
+    setValue(amount);
+  }, [amount]);
 
   return (
     <div className="py-3">
