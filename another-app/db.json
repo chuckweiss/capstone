@@ -25,10 +25,9 @@
     {
       "items": {
         "profile1": {
-          "Item1": 5,
-          "Item2": 5,
-          "Item3": 5,
           "Item4": 5,
+          "Item1": 5,
+          "Item5": 5,
           "name": "profile1"
         },
         "profile2": {

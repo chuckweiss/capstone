@@ -24,7 +24,7 @@ const ProfileItem = ({ item, amount, setAmount, profile }) => {
           leading-tight focus:outline-none focus:shadow-outline 
           text-right"
           type="text"
-          value={value || 0}
+          value={value}
           onChange={(e) => {
             const val = parseInt(e.target.value) || 0;
             setValue(val);

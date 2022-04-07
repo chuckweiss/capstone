@@ -1,16 +1,26 @@
 import ProfileItem from "./ProfileItem";
+import NewProfileInput from "./NewProfileInput";
+import { useState } from "react";
 
 const ProfileItems = ({ inventory, profiles, profileName, storeProfile }) => {
   const profile = profiles[profileName];
 
   let amounts = inventory.map((item) => parseInt(profile[item.text]));
-
   const changeAmounts = (i, amount) => (amounts[i] = amount);
+
+  const [showModal, setShowModal] = useState(false);
+  // const [newProfileName, setNewProfileName] = useState("");
+
+  let newProfileName = "";
+  const setNewProfileName = (s) => (newProfileName = s);
 
   const onSubmit = (e) => {
     e.preventDefault();
+
+    const name = newProfileName.length > 0 ? newProfileName : profileName;
+
     storeProfile(
-      profileName,
+      name,
       amounts.map((amount, i) => [inventory[i].text, amount])
     );
   };
@@ -37,6 +47,14 @@ const ProfileItems = ({ inventory, profiles, profileName, storeProfile }) => {
         focus:shadow-outline bg-green-900"
         type="submit"
         value="Save Profile"
+      />
+
+      <NewProfileInput
+        showModal={showModal}
+        setShowModal={setShowModal}
+        newProfileName={newProfileName}
+        setNewProfileName={setNewProfileName}
+        onSubmit={onSubmit}
       />
     </form>
   );
