@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const OrderItem = ({ item, setAmount, profile }) => {
-  const [value, setValue] = useState(
-    profile[item.text] ? profile[item.text] - item.amount : 0
-  );
+const OrderItem = ({ item, amount, setAmount, profile }) => {
+  const [value, setValue] = useState(amount);
+
+  useEffect(() => {
+    setValue(amount);
+  }, [amount]);
 
   return (
     <div className="py-3">
@@ -27,8 +29,9 @@ const OrderItem = ({ item, setAmount, profile }) => {
           type="text"
           value={value}
           onChange={(e) => {
-            setValue(parseInt(e.target.value));
-            setAmount(parseInt(e.target.value));
+            const val = parseInt(e.target.value);
+            setValue(val);
+            setAmount(val);
           }}
         />
       </div>

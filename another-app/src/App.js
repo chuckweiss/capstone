@@ -20,6 +20,7 @@ function App() {
 
   const [inventory, setInventory] = useState([]);
   const [profiles, setProfiles] = useState({});
+  const [orders, setOrders] = useState([]);
 
   const isInitialMount = useRef(true);
 
@@ -36,6 +37,12 @@ function App() {
     return data[0].items;
   };
 
+  const fetchOrders = async () => {
+    const res = await fetch(`${serverURL}/orders`);
+    const data = await res.json();
+    return data;
+  };
+
   // Get inventory on page load
   useEffect(() => {
     const getInventory = async () => {
@@ -49,6 +56,12 @@ function App() {
       setProfiles(profiles);
     };
     getProfiles();
+
+    const getOrders = async () => {
+      const orders = await fetchOrders();
+      setOrders(orders);
+    };
+    getOrders();
   }, []);
 
   // Keep inventory updated on server
@@ -85,23 +98,27 @@ function App() {
     setInventory(inventory.filter((e) => e !== item));
   };
 
-  const storeOrder = (orders) => {
+  const storeOrder = (order) => {
+    const time = Date.now();
+
     const postOrders = async () => {
       await fetch(`${serverURL}/orders`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ orders: orders, time: Date.now() }),
+        body: JSON.stringify({ orders: order, time }),
       });
     };
 
     postOrders();
+
+    orders.push({ orders: order, time: time });
+    setOrders([...orders]);
   };
 
-  const storeProfile = (name, data) => {
-    profiles[name] = Object.fromEntries(data);
-    profiles[name].name = name;
+  const storeProfile = (profile) => {
+    profiles[profile.name] = profile;
     setProfiles(Object.assign({}, profiles));
 
     const postProfiles = async () => {
@@ -149,6 +166,7 @@ function App() {
                 inventory={inventory}
                 profiles={profiles}
                 storeProfile={storeProfile}
+                orders={orders}
               />
             }
           />

@@ -20,6 +20,7 @@ const OrderItems = ({ inventory, profile, storeOrder }) => {
         <OrderItem
           key={i}
           item={item}
+          amount={orderAmounts[i]}
           setAmount={(amount) => changeOrderAmount(i, amount)}
           profile={profile}
         />

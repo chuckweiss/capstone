@@ -1,9 +1,9 @@
-const ProfileSelect = ({ profiles, profileName, setProfileName }) => {
+const ProfileSelect = ({ profiles, profile, setProfile }) => {
   return (
     <select
       className=""
-      value={profileName}
-      onChange={(e) => setProfileName(e.target.value)}
+      value={profile.name}
+      onChange={(e) => setProfile(profiles[e.target.value])}
     >
       {Object.entries(profiles).map(([name, items], i) => (
         <option key={i} value={name}>

@@ -24,6 +24,7 @@ const NewProfileInput = ({
       >
         Save as New Profile
       </button>
+
       {showModal && (
         <>
           <div
@@ -107,6 +108,7 @@ const NewProfileInput = ({
               </div>
             </div>
           </div>
+
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       )}

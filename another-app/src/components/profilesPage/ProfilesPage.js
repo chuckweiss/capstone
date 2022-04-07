@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileItems from "./ProfileItems";
 import ProfileSelect from "../orderPage/ProfileSelect";
+import OrderProfileSelect from "./OrderProfileSelect";
 
-const ProfilesPage = ({ inventory, profiles, storeProfile }) => {
-  const [profileName, setProfileName] = useState("profile1");
+const ProfilesPage = ({ inventory, profiles, storeProfile, orders }) => {
+  const [profile, setProfile] = useState(profiles.profile2);
+
+  useEffect(() => {
+    if (!profile && profiles.profile2) {
+      setProfile(profiles.profile2);
+    }
+  }, [profiles, profile]);
 
   return (
     <div className="flex flex-col items-center py-4">
@@ -11,19 +18,22 @@ const ProfilesPage = ({ inventory, profiles, storeProfile }) => {
         <div>Profiles</div>
       </h1>
 
-      <ProfileSelect
-        profiles={profiles}
-        profileName={profileName}
-        setProfileName={setProfileName}
-      />
-
-      {profiles[profileName] && (
-        <ProfileItems
-          inventory={inventory}
-          profiles={profiles}
-          profileName={profileName}
-          storeProfile={storeProfile}
-        />
+      {profile && (
+        <>
+          <OrderProfileSelect orders={orders} setProfile={setProfile} />
+          <ProfileSelect
+            profiles={profiles}
+            profile={profile}
+            setProfile={setProfile}
+          />
+          Selected Profile: {profile.name}
+          <ProfileItems
+            inventory={inventory}
+            profile={profile}
+            setProfile={setProfile}
+            storeProfile={storeProfile}
+          />
+        </>
       )}
     </div>
   );
