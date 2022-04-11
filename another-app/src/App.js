@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 // import logo from "./logo.svg";
 // import "./App.css";
 import {
@@ -12,8 +12,12 @@ import NavBar from "./components/navBar/NavBar";
 import OrderPage from "./components/orderPage/OrderPage";
 import ProfilesPage from "./components/profilesPage/ProfilesPage";
 
+// TO DO
+// default profiles
+// inv page dates actually dynamic
+
 function App() {
-  const serverURL = "http://localhost:5000";
+  const serverURL = "http://localhost:3000";
   const inventoryURL = "inventory";
   const orderPageURL = "order";
   const profilesURL = "profiles";
@@ -22,23 +26,21 @@ function App() {
   const [profiles, setProfiles] = useState({});
   const [orders, setOrders] = useState([]);
 
-  const isInitialMount = useRef(true);
-
   // Fetch Inventory
   const fetchInventory = async () => {
-    const res = await fetch(`${serverURL}/${inventoryURL}`);
+    const res = await fetch(`/api/${inventoryURL}`);
     const data = await res.json();
-    return data[0].items;
+    return data;
   };
 
   const fetchProfiles = async () => {
-    const res = await fetch(`${serverURL}/${profilesURL}`);
+    const res = await fetch(`${serverURL}/api/${profilesURL}`);
     const data = await res.json();
-    return data[0].items;
+    return data;
   };
 
   const fetchOrders = async () => {
-    const res = await fetch(`${serverURL}/orders`);
+    const res = await fetch(`${serverURL}/api/orders`);
     const data = await res.json();
     return data;
   };
@@ -64,37 +66,51 @@ function App() {
     getOrders();
   }, []);
 
-  // Keep inventory updated on server
-  useEffect(() => {
+  const addItem = async (item) => {
     const postInventory = async () => {
-      await fetch(`${serverURL}/${inventoryURL}/1`, {
-        method: "PUT",
+      await fetch(`/api/${inventoryURL}`, {
+        method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ items: inventory }),
+        body: JSON.stringify(item),
       });
     };
+    postInventory();
 
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      postInventory();
-    }
-  }, [inventory]);
-
-  const addItem = async (item) => {
     inventory.push(item);
     setInventory([...inventory]);
   };
 
   const editItem = async (item, amount) => {
-    console.log(item, amount);
     item.amount = amount;
+
+    const patchInventoryItem = async () => {
+      await fetch(`/api/${inventoryURL}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+    };
+    patchInventoryItem();
+
     setInventory([...inventory]);
   };
 
   const deleteItem = async (item) => {
+    const deleteInventoryItem = async () => {
+      await fetch(`/api/${inventoryURL}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(item),
+      });
+    };
+    deleteInventoryItem();
+
     setInventory(inventory.filter((e) => e !== item));
   };
 
@@ -102,7 +118,7 @@ function App() {
     const time = Date.now();
 
     const postOrders = async () => {
-      await fetch(`${serverURL}/orders`, {
+      await fetch(`${serverURL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -122,7 +138,7 @@ function App() {
     setProfiles(Object.assign({}, profiles));
 
     const postProfiles = async () => {
-      await fetch(`${serverURL}/${profilesURL}/1`, {
+      await fetch(`/api/${profilesURL}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
